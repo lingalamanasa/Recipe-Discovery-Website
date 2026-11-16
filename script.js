@@ -1274,6 +1274,7 @@ function initGlobalNavigation() {
   document.querySelectorAll(".search-trigger-btn").forEach(btn => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
+      closeMobileNav();
       openQuickSearchModal();
     });
   });

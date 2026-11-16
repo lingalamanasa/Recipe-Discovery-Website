@@ -1,6 +1,7 @@
-# FlavorNest - Premium Recipe Discovery & Meal Planning Platform
+# Stackly - Premium Recipe Discovery & Meal Planning Platform
 
-> **Live Website**: [https://lingalamanasa.github.io/Recipe-Discovery-Website/](https://lingalamanasa.github.io/Recipe-Discovery-Website/)
+> 🔗 **GitHub Repository**: [https://github.com/lingalamanasa/Recipe-Discovery-Website](https://github.com/lingalamanasa/Recipe-Discovery-Website)  
+> 🌐 **Live Website (GitHub Pages)**: [https://lingalamanasa.github.io/Recipe-Discovery-Website/](https://lingalamanasa.github.io/Recipe-Discovery-Website/)
 
 A modern, visually stunning, responsive recipe discovery website and weekly meal planner built using **semantic HTML5**, **modern CSS3**, and **Vanilla JavaScript** (ES6+).
 
@@ -8,7 +9,7 @@ A modern, visually stunning, responsive recipe discovery website and weekly meal
 
 ## 🎨 1. Design Theme & Color Palette
 
-FlavorNest is designed around an elegant, editorial food-magazine aesthetic with warm, appetizing tones, refined typography, and smooth micro-interactions.
+Stackly is designed around an elegant, editorial food-magazine aesthetic with warm, appetizing tones, refined typography, and smooth micro-interactions.
 
 | Color Role | Hex Code | Purpose |
 | :--- | :--- | :--- |
@@ -33,7 +34,7 @@ FlavorNest is designed around an elegant, editorial food-magazine aesthetic with
    - **Featured Recipe of the Day**: Highlighting Tuscan Garlic Butter Salmon with metadata, time breakdowns, and instant Add-to-Plan / View Recipe triggers.
    - **Popular Recipes**: 6 interactive recipe cards with image hover zoom, category tags, difficulty badges, heart toggle, and star ratings.
    - **Recipe Categories**: Visual cards for Breakfast, Lunch, Dinner, Desserts, Healthy Food, and Vegetarian that navigate to the Explore page with pre-selected filters.
-   - **Why Choose FlavorNest**: 4 interactive feature cards (Easy Recipes, Quick Cooking, Healthy Choices, Meal Planning).
+   - **Why Choose Stackly**: 4 interactive feature cards (Easy Recipes, Quick Cooking, Healthy Choices, Meal Planning).
    - **Newsletter Subscription**: Email input with regex validation, instant feedback message, and local storage recording.
    - **Footer**: Brand statement, quick links, category navigation, social media icons, and copyright.
 
