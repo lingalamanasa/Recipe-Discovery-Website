@@ -1,5 +1,7 @@
 # FlavorNest - Premium Recipe Discovery & Meal Planning Platform
 
+> **Live Website**: [https://lingalamanasa.github.io/Recipe-Discovery-Website/](https://lingalamanasa.github.io/Recipe-Discovery-Website/)
+
 A modern, visually stunning, responsive recipe discovery website and weekly meal planner built using **semantic HTML5**, **modern CSS3**, and **Vanilla JavaScript** (ES6+).
 
 ---
@@ -134,4 +136,3 @@ No build step, Node.js server, or external package manager is required. The webs
 - **Kitchen Step Timer**: Floating timer that counts down cooking steps and alerts when done.
 - **Print Friendly**: Built-in print stylesheet hiding UI controls for distraction-free kitchen recipe cards.
 
-# Recipe-Discovery-Website

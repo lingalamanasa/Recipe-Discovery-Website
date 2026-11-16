@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlavorNest | Artisanal Recipe Discovery & Meal Planning</title>
+  <meta name="description" content="Discover gourmet, chef-crafted recipes, plan your weekly culinary meals, and elevate your dining experience with FlavorNest.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="assets/images/stackly-logo.png">
+</head>
+<body>
+
+  <!-- ==========================================
+       PRELOADER ANIMATION
+       ========================================== -->
+  <div class="site-preloader" id="site-preloader" aria-label="Loading Stackly">
+    <div class="preloader-content">
+      <div class="preloader-spinner-wrap">
+        <div class="preloader-ring"></div>
+        <div class="preloader-icon-box">
+          <img src="assets/images/stackly-logo.png" alt="Stackly Logo" class="preloader-logo-icon">
+        </div>
+      </div>
+      <div class="preloader-brand">
+        STACKLY
+      </div>
+      <div class="preloader-bar-wrap">
+        <div class="preloader-bar-fill"></div>
+      </div>
+      <p class="preloader-subtext">Plating chef-crafted culinary creations...</p>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       NAVIGATION BAR
+       ========================================== -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="brand-logo" aria-label="Stackly Homepage">
+        <img src="assets/images/stackly-logo.png" alt="Stackly Logo" class="brand-logo-img">
+      </a>
+
+      <!-- Mobile Drawer Backdrop -->
+      <div class="mobile-nav-backdrop" id="mobile-nav-backdrop"></div>
+
+      <!-- Desktop Nav Menu & Mobile Drawer -->
+      <nav class="nav-menu" id="nav-menu" aria-label="Main Navigation">
+        <div class="mobile-nav-header">
+          <div class="brand-logo">
+            <img src="assets/images/stackly-logo.png" alt="Stackly Logo" class="brand-logo-img">
+          </div>
+          <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close menu">&times;</button>
+        </div>
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="explore.html" class="nav-link">Explore Recipes</a>
+        <a href="meal-plan.html" class="nav-link">My Meal Plan</a>
+        <div class="mobile-nav-actions">
+          <button class="btn btn-outline btn-sm search-trigger-btn mobile-action-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon-svg">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            Quick Search
+          </button>
+          <a href="meal-plan.html#favorites" class="btn btn-outline btn-sm mobile-action-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon-svg">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+            Saved Favourites (<span class="fav-badge-count">0</span>)
+          </a>
+        </div>
+      </nav>
+
+      <!-- Nav Utilities & Action Badges -->
+      <div class="nav-actions">
+        <!-- Search Trigger Icon -->
+        <button class="nav-icon-btn search-trigger-btn" aria-label="Search recipes" title="Quick Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+
+        <!-- Favourites Button with Dynamic Badge -->
+        <a href="meal-plan.html#favorites" class="nav-icon-btn" aria-label="View Favourites" title="Saved Favourites">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+          <span class="nav-badge-indicator fav-badge-count" style="display: none;">0</span>
+        </a>
+
+        <!-- Meal Plan Badge Button -->
+        <a href="meal-plan.html" class="nav-icon-btn" aria-label="My Meal Plan" title="Planned Meals">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          <span class="nav-badge-indicator meal-badge-count" style="display: none;">0</span>
+        </a>
+
+        <!-- Responsive Hamburger Toggle -->
+        <button class="mobile-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================
+         HERO SECTION (SPLIT LAYOUT)
+         ========================================== -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-grid">
+          <!-- Left Column Content -->
+          <div class="hero-content">
+            <div class="hero-badge">
+              <span class="hero-badge-dot"></span>
+              <span>Discover Your Next Favorite Meal</span>
+            </div>
+            <h1 class="hero-title">
+              Good Food, <em>Great Mood</em>, Every Single Day.
+            </h1>
+            <p class="hero-description">
+              Unleash your inner chef with over thousands of artisan recipes, intuitive step-by-step masterclasses, and an effortless weekly meal planner designed for flavorful living.
+            </p>
+            <div class="hero-cta-group">
+              <a href="explore.html" class="btn btn-primary btn-lg">
+                Explore Recipes
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-arrow">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+              <button class="btn btn-outline btn-lg" id="hero-special-btn">
+                Discover Today's Special
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Column Visual & Floating Badges -->
+          <div class="hero-media">
+            <div class="hero-image-card">
+              <img 
+                src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80" 
+                alt="Gourmet Slow-Braised Lamb Shank plated to perfection" 
+                class="hero-main-img"
+                onerror="handleImageError(this)"
+              >
+              <!-- Floating Cooking Time Badge -->
+              <div class="hero-floating-badge badge-time">
+                <div class="badge-icon-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </div>
+                <div>
+                  <span class="badge-text-primary">25 Mins</span>
+                  <span class="badge-text-secondary">Average Cook Time</span>
+                </div>
+              </div>
+
+              <!-- Floating Rating Badge -->
+              <div class="hero-floating-badge badge-rating">
+                <div class="badge-icon-box accent">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                  </svg>
+                </div>
+                <div>
+                  <span class="badge-text-primary">4.9 / 5.0</span>
+                  <span class="badge-text-secondary">Community Rated</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         FEATURED RECIPE SECTION
+         ========================================== -->
+    <section class="featured-section" id="featured-section">
+      <div class="container">
+        <div class="section-heading-row">
+          <div>
+            <span class="section-kicker">Hand-Picked By Our Executive Chefs</span>
+            <h2 class="section-heading">Featured Culinary Masterpiece</h2>
+          </div>
+          <a href="explore.html" class="btn btn-outline">Browse All 18+ Dishes</a>
+        </div>
+        <!-- Dynamic Featured Recipe Injected via script.js -->
+        <div id="featured-recipe-container"></div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         POPULAR RECIPES SECTION (6+ Cards)
+         ========================================== -->
+    <section class="popular-section">
+      <div class="container">
+        <div class="section-heading-row">
+          <div>
+            <span class="section-kicker">Trending in Kitchens Worldwide</span>
+            <h2 class="section-heading">Most Loved Recipes</h2>
+          </div>
+          <a href="explore.html" class="btn btn-outline">View Complete Collection &rarr;</a>
+        </div>
+        <!-- Dynamic Popular Recipes Injected via script.js -->
+        <div class="recipes-grid" id="popular-recipes-grid"></div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         RECIPE CATEGORIES SECTION
+         ========================================== -->
+    <section class="categories-section">
+      <div class="container">
+        <div class="section-header-center">
+          <span class="section-kicker">Culinary Exploration</span>
+          <h2 class="section-heading">Browse by Meal &amp; Mood</h2>
+          <p class="section-subtext">Whether you seek a power-packed morning breakfast, a 15-minute quick lunch, or a celebratory multi-course dinner, we have your cravings covered.</p>
+        </div>
+
+        <div class="categories-grid">
+          <!-- Breakfast -->
+          <a href="explore.html?category=breakfast" class="category-card">
+            <div class="cat-media-wrap">
+              <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=600&q=80" alt="Fresh Breakfast" class="cat-img" onerror="handleImageError(this)">
+            </div>
+            <div class="cat-body">
+              <h3 class="cat-title">Breakfast</h3>
+              <span class="cat-count">4 Recipes</span>
+            </div>
+          </a>
+
+          <!-- Lunch -->
+          <a href="explore.html?category=lunch" class="category-card">
+            <div class="cat-media-wrap">
+              <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=600&q=80" alt="Gourmet Lunch" class="cat-img" onerror="handleImageError(this)">
+            </div>
+            <div class="cat-body">
+              <h3 class="cat-title">Lunch</h3>
+              <span class="cat-count">4 Recipes</span>
+            </div>
+          </a>
+
+          <!-- Dinner -->
+          <a href="explore.html?category=dinner" class="category-card">
+            <div class="cat-media-wrap">
+              <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=600&q=80" alt="Delicious Dinner" class="cat-img" onerror="handleImageError(this)">
+            </div>
+            <div class="cat-body">
+              <h3 class="cat-title">Dinner</h3>
+              <span class="cat-count">4 Recipes</span>
+            </div>
+          </a>
+
+          <!-- Desserts -->
+          <a href="explore.html?category=desserts" class="category-card">
+            <div class="cat-media-wrap">
+              <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=600&q=80" alt="Decadent Desserts" class="cat-img" onerror="handleImageError(this)">
+            </div>
+            <div class="cat-body">
+              <h3 class="cat-title">Desserts</h3>
+              <span class="cat-count">2 Recipes</span>
+            </div>
+          </a>
+
+          <!-- Healthy Food -->
+          <a href="explore.html?category=healthy" class="category-card">
+            <div class="cat-media-wrap">
+              <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80" alt="Healthy Food" class="cat-img" onerror="handleImageError(this)">
+            </div>
+            <div class="cat-body">
+              <h3 class="cat-title">Healthy Food</h3>
+              <span class="cat-count">3 Recipes</span>
+            </div>
+          </a>
+
+          <!-- Vegetarian -->
+          <a href="explore.html?category=vegetarian" class="category-card">
+            <div class="cat-media-wrap">
+              <img src="https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=600&q=80" alt="Vegetarian Dishes" class="cat-img" onerror="handleImageError(this)">
+            </div>
+            <div class="cat-body">
+              <h3 class="cat-title">Vegetarian</h3>
+              <span class="cat-count">4 Recipes</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         WHY CHOOSE FLAVORNEST?
+         ========================================== -->
+    <section class="why-us-section">
+      <div class="container">
+        <div class="section-header-center">
+          <span class="section-kicker">The FlavorNest Difference</span>
+          <h2 class="section-heading">Why Food Lovers Choose Us</h2>
+          <p class="section-subtext">Crafted by culinary enthusiasts for real home kitchens with precision, passion, and simplicity.</p>
+        </div>
+
+        <div class="features-grid">
+          <!-- Card 1 -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">Easy Recipes</h3>
+            <p class="feature-card-text">Crystal-clear instructions, scalable portion sizing, and chef-tested techniques ensure foolproof results every time.</p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12A10 10 0 0 1 12 2z"></path>
+                <path d="M12 6v6l4 2"></path>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">Quick Cooking</h3>
+            <p class="feature-card-text">Busy weeknights made simple with gourmet 15-to-30 minute meals and built-in interactive countdown timers.</p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">Healthy Choices</h3>
+            <p class="feature-card-text">Comprehensive nutritional breakdowns, macro-balanced ingredients, and wholesome clean-eating alternatives.</p>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+                <line x1="8" y1="14" x2="8" y2="14.01"></line>
+                <line x1="12" y1="14" x2="12" y2="14.01"></line>
+                <line x1="16" y1="14" x2="16" y2="14.01"></line>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">Meal Planning</h3>
+            <p class="feature-card-text">Seamless 7-day calendar scheduling with an auto-generated, consolidated grocery shopping list for effortless pantry shopping.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         NEWSLETTER SECTION
+         ========================================== -->
+    <section class="newsletter-section">
+      <div class="container">
+        <div class="newsletter-box">
+          <div class="newsletter-text-col">
+            <span class="section-kicker" style="color: var(--color-accent-light);">Join 40,000+ Food Enthusiasts</span>
+            <h2 class="newsletter-title">Fresh Inspiration, Straight to Your Inbox.</h2>
+            <p class="newsletter-desc">Subscribe to receive chef secrets, seasonal culinary guides, and curated weekend meal plans every Friday morning. No spam, ever.</p>
+          </div>
+          <div class="newsletter-form-wrapper">
+            <form id="newsletter-form" novalidate>
+              <div class="newsletter-form-row">
+                <input 
+                  type="email" 
+                  class="newsletter-input" 
+                  placeholder="Enter your email address..." 
+                  required
+                  aria-label="Email address for newsletter"
+                >
+                <button type="submit" class="btn btn-secondary">Subscribe</button>
+              </div>
+              <div class="newsletter-feedback" aria-live="polite"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================
+       FOOTER
+       ========================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Col 1: Brand & Bio -->
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo" aria-label="Stackly Homepage">
+            <img src="assets/images/stackly-logo.png" alt="Stackly Logo" class="brand-logo-img footer-logo-img">
+          </a>
+          <p class="footer-text">
+            A premium sanctuary for epicureans and everyday home cooks. Discover extraordinary recipes, craft wholesome meal plans, and celebrate food as art.
+          </p>
+          <div class="footer-social-links">
+            <a href="#" class="social-icon-btn" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+            <a href="#" class="social-icon-btn" aria-label="Pinterest">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="m8 12 3-3 3 3"></path><path d="M12 9v7"></path></svg>
+            </a>
+            <a href="#" class="social-icon-btn" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: Navigation -->
+        <div class="footer-links-col">
+          <h4 class="footer-column-title">Explore</h4>
+          <ul class="footer-nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="explore.html">All Recipes</a></li>
+            <li><a href="meal-plan.html">Weekly Meal Planner</a></li>
+            <li><a href="meal-plan.html#favorites">Saved Favourites</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Categories -->
+        <div class="footer-links-col">
+          <h4 class="footer-column-title">Categories</h4>
+          <ul class="footer-nav-list">
+            <li><a href="explore.html?category=breakfast">Breakfast</a></li>
+            <li><a href="explore.html?category=lunch">Lunch Specials</a></li>
+            <li><a href="explore.html?category=dinner">Dinner Classics</a></li>
+            <li><a href="explore.html?category=healthy">Healthy Living</a></li>
+            <li><a href="explore.html?category=desserts">Pastries &amp; Desserts</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Culinary Philosophy -->
+        <div class="footer-links-col">
+          <h4 class="footer-column-title">Flavor Philosophy</h4>
+          <p style="font-size: 0.88rem; color: #a0ada4; line-height: 1.6;">
+            "Cooking is not merely sustenance; it is a ritual of mindfulness, an invitation to gather, and an expression of love."
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 FlavorNest Gourmet Platforms Inc. All Rights Reserved. Handcrafted with passion.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+
+<script>
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const list = [];
+    document.querySelectorAll('*').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.right > 375 || el.scrollWidth > 375) {
+        // ignore html and body
+        if (el.tagName !== 'HTML' && el.tagName !== 'BODY') {
+          list.push({
+            tag: el.tagName,
+            cls: (el.className && typeof el.className === 'string') ? el.className.trim() : '',
+            id: el.id || '',
+            right: Math.round(r.right),
+            left: Math.round(r.left),
+            width: Math.round(r.width),
+            scrollWidth: el.scrollWidth
+          });
+        }
+      }
+    });
+    fetch('http://localhost:8081', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        docScrollWidth: document.documentElement.scrollWidth,
+        bodyScrollWidth: document.body.scrollWidth,
+        overflowCount: list.length,
+        items: list.slice(0, 20)
+      })
+    }).catch(err => console.error(err));
+  }, 200);
+});
+</script>
+</body>
+</html>
+
+
+
+
+
+

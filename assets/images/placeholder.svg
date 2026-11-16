@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#FAF7F0"/>
+  <rect x="20" y="20" width="760" height="560" rx="24" fill="#FFFFFF" stroke="#E5DFD3" stroke-width="2"/>
+  <circle cx="400" cy="260" r="110" fill="#F0F4EE" stroke="#A8B89A" stroke-width="4"/>
+  <circle cx="400" cy="260" r="90" fill="#FAF7F0"/>
+  <!-- Fork & Spoon -->
+  <path d="M375 220 L375 300 M365 220 C365 245 375 255 375 255 C375 255 385 245 385 220 M375 220 L375 245" stroke="#244D3A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M425 220 C435 220 440 235 440 250 C440 262 432 270 425 272 L425 300 M425 220 C415 220 410 235 410 250 C410 262 418 270 425 272" stroke="#E89A55" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text x="400" y="420" font-family="'Playfair Display', serif" font-size="32" font-weight="700" fill="#244D3A" text-anchor="middle">FlavorNest Recipe</text>
+  <text x="400" y="460" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" fill="#A8B89A" text-anchor="middle">Artisanal &amp; Fresh Everyday</text>
+</svg>
+
