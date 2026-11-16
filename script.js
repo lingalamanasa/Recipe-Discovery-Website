@@ -728,10 +728,9 @@ function toggleFavorite(recipeId) {
   document.querySelectorAll(`[data-fav-id="${recipeId}"]`).forEach(btn => {
     btn.classList.toggle("active", !exists);
     btn.setAttribute("aria-label", !exists ? "Remove from favourites" : "Add to favourites");
-    const icon = btn.querySelector("i") || btn.querySelector("svg");
     if (btn.classList.contains("active")) {
-      btn.style.transform = "scale(1.2)";
-      setTimeout(() => btn.style.transform = "", 200);
+      btn.classList.add("just-liked");
+      setTimeout(() => btn.classList.remove("just-liked"), 500);
     }
   });
 
@@ -1138,6 +1137,85 @@ function initPreloader() {
 }
 
 // ==========================================
+// 3.95 SCROLL REVEAL & STATS COUNTER ANIMATIONS
+// ==========================================
+function initScrollAnimations() {
+  const targets = document.querySelectorAll(
+    ".section-kicker, .section-heading, .section-subtext, " +
+    ".featured-card, .recipe-card, .cat-card, .feature-card, " +
+    ".newsletter-box, .stat-pill, .calendar-day-column, " +
+    ".ingredients-card, .instructions-card, .kitchen-timer-widget, " +
+    ".grocery-card, .favorites-shelf-card, .explore-toolbar, .hero-content, .hero-media"
+  );
+
+  if (!("IntersectionObserver" in window)) {
+    targets.forEach(el => el.classList.add("revealed"));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("revealed");
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.08,
+    rootMargin: "0px 0px -20px 0px"
+  });
+
+  targets.forEach(el => {
+    if (!el.classList.contains("scroll-reveal")) {
+      el.classList.add("scroll-reveal");
+    }
+    observer.observe(el);
+  });
+}
+
+function initCounterAnimations() {
+  const statElements = document.querySelectorAll(".ps-val");
+  if (!statElements.length) return;
+
+  const animateValue = (el, start, end, duration, suffix = "") => {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(easeProgress * (end - start) + start);
+      el.textContent = current + suffix;
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        el.textContent = end + suffix;
+      }
+    };
+    window.requestAnimationFrame(step);
+  };
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const text = el.textContent.trim();
+        const numMatch = text.match(/^(\d+)(.*)$/);
+        if (numMatch) {
+          const targetNum = parseInt(numMatch[1], 10);
+          const suffix = numMatch[2] || "";
+          if (targetNum > 0) {
+            animateValue(el, 0, targetNum, 800, suffix);
+          }
+        }
+        obs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  statElements.forEach(el => observer.observe(el));
+}
+
+// ==========================================
 // 4. COMMON NAVIGATION & GLOBAL CONTROLS
 // ==========================================
 function initGlobalNavigation() {
@@ -1326,6 +1404,10 @@ function bindRecipeCardInteractions(containerElement) {
       return;
     }
   });
+
+  if (typeof initScrollAnimations === "function") {
+    setTimeout(initScrollAnimations, 50);
+  }
 }
 
 // ==========================================
@@ -2475,5 +2557,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Default to Home page (index.html or root /)
     initHomePage();
   }
+
+  // Initialize scroll-triggered reveals and stats counter animations
+  initScrollAnimations();
+  initCounterAnimations();
 });
 

@@ -263,9 +263,220 @@ ul, ol {
 @media (prefers-reduced-motion: reduce) {
   .preloader-ring,
   .preloader-icon-box,
-  .preloader-bar-fill {
+  .preloader-bar-fill,
+  .hero-image-card,
+  .badge-time,
+  .badge-rating,
+  .newsletter-box,
+  .scroll-reveal {
     animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
+}
+
+/* ========================================================
+   2.2 SCROLL REVEAL & MICRO-ANIMATIONS SUITE
+   ======================================================== */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.revealed {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Stagger entrance delays for grid children */
+.recipes-grid .recipe-card:nth-child(1) { transition-delay: 0.05s; }
+.recipes-grid .recipe-card:nth-child(2) { transition-delay: 0.12s; }
+.recipes-grid .recipe-card:nth-child(3) { transition-delay: 0.19s; }
+.recipes-grid .recipe-card:nth-child(4) { transition-delay: 0.26s; }
+.recipes-grid .recipe-card:nth-child(5) { transition-delay: 0.33s; }
+.recipes-grid .recipe-card:nth-child(6) { transition-delay: 0.40s; }
+
+.categories-grid .cat-card:nth-child(1) { transition-delay: 0.05s; }
+.categories-grid .cat-card:nth-child(2) { transition-delay: 0.10s; }
+.categories-grid .cat-card:nth-child(3) { transition-delay: 0.15s; }
+.categories-grid .cat-card:nth-child(4) { transition-delay: 0.20s; }
+.categories-grid .cat-card:nth-child(5) { transition-delay: 0.25s; }
+.categories-grid .cat-card:nth-child(6) { transition-delay: 0.30s; }
+
+.features-grid .feature-card:nth-child(1) { transition-delay: 0.06s; }
+.features-grid .feature-card:nth-child(2) { transition-delay: 0.15s; }
+.features-grid .feature-card:nth-child(3) { transition-delay: 0.24s; }
+.features-grid .feature-card:nth-child(4) { transition-delay: 0.33s; }
+
+/* Hero Ambient Floating Animations */
+@keyframes heroImgFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(0.4deg);
+  }
+}
+
+@keyframes badgeFloatA {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes badgeFloatB {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+.hero-image-card {
+  animation: heroImgFloat 6s ease-in-out infinite;
+}
+
+.badge-time {
+  animation: badgeFloatA 4.5s ease-in-out infinite;
+}
+
+.badge-rating {
+  animation: badgeFloatB 5s ease-in-out infinite 0.6s;
+}
+
+/* Button Hover Sweep Shimmer */
+.btn-primary, .btn-secondary {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn-primary::after, .btn-secondary::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -70%;
+  width: 45%;
+  height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transform: rotate(25deg);
+  transition: none;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.btn-primary:hover::after, .btn-secondary:hover::after {
+  left: 140%;
+  transition: left 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Heart Favorite Pop */
+@keyframes heartPop {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.35) rotate(-10deg); }
+  70% { transform: scale(0.9) rotate(5deg); }
+  100% { transform: scale(1); }
+}
+
+.fav-toggle-btn.just-liked svg,
+.hero-fav-btn.just-liked svg {
+  animation: heartPop 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Recipe Card Hover Elevation & Glow */
+.recipe-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
+}
+.recipe-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 16px 36px -4px rgba(36, 77, 58, 0.15), 0 4px 12px rgba(36, 77, 58, 0.05);
+  border-color: var(--color-secondary);
+}
+.recipe-card-media {
+  overflow: hidden;
+}
+.recipe-card:hover .recipe-card-img {
+  transform: scale(1.08);
+  filter: brightness(1.03);
+}
+
+/* Category Card Hover Expansion & Glow */
+.cat-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+.cat-card:hover {
+  transform: translateY(-7px) scale(1.02);
+  box-shadow: 0 14px 30px rgba(36, 77, 58, 0.14);
+  border-color: var(--color-accent);
+}
+.cat-media-wrap {
+  overflow: hidden;
+}
+.cat-card:hover .cat-img {
+  transform: scale(1.12);
+}
+
+/* Feature Card Icon Glow & Tilt */
+.feature-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(36, 77, 58, 0.1);
+  border-color: var(--color-secondary);
+}
+.feature-icon-box {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, color 0.3s ease, box-shadow 0.35s ease;
+}
+.feature-card:hover .feature-icon-box {
+  transform: scale(1.14) rotate(5deg);
+  background-color: var(--color-accent);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(232, 154, 85, 0.35);
+}
+
+/* Featured Recipe Card Hover Lift */
+.featured-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+.featured-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px -10px rgba(36, 77, 58, 0.14);
+  border-color: var(--color-secondary);
+}
+
+/* Newsletter Ambient Animated Glow */
+@keyframes newsletterGlow {
+  0%, 100% {
+    box-shadow: 0 12px 36px rgba(36, 77, 58, 0.15);
+  }
+  50% {
+    box-shadow: 0 16px 48px rgba(36, 77, 58, 0.25), 0 0 24px rgba(232, 154, 85, 0.15);
+  }
+}
+.newsletter-box {
+  animation: newsletterGlow 6s ease-in-out infinite;
+}
+
+/* Subtle Interactive Heading Tilt */
+.hero-title em {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+.hero-title:hover em {
+  transform: skewX(-3deg) scale(1.03);
+}
+
+/* Pulse Dot Glowing Ring */
+.hero-badge-dot {
+  animation: pulseDot 2s infinite;
 }
 
 /* Container */
