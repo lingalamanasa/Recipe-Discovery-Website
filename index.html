@@ -3,15 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FlavorNest | Artisanal Recipe Discovery & Meal Planning</title>
-  <meta name="description" content="Discover gourmet, chef-crafted recipes, plan your weekly culinary meals, and elevate your dining experience with FlavorNest.">
+  <title>Stackly | Artisanal Recipe Discovery & Meal Planning</title>
+  <meta name="description" content="Discover gourmet, chef-crafted recipes, plan your weekly culinary meals, and elevate your dining experience with Stackly.">
+  <!-- AOS Scroll Animation Library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="assets/images/stackly-logo.png">
 </head>
 <body>
 
   <!-- ==========================================
-       PRELOADER ANIMATION
+       PRELOADER ANIMATION WITH LIVE PERCENTAGE COUNTER
        ========================================== -->
   <div class="site-preloader" id="site-preloader" aria-label="Loading Stackly">
     <div class="preloader-content">
@@ -25,8 +27,9 @@
         STACKLY
       </div>
       <div class="preloader-bar-wrap">
-        <div class="preloader-bar-fill"></div>
+        <div class="preloader-bar-fill" id="preloader-bar-fill"></div>
       </div>
+      <div class="preloader-counter" id="preloader-counter">0%</div>
       <p class="preloader-subtext">Plating chef-crafted culinary creations...</p>
     </div>
   </div>
@@ -111,39 +114,39 @@
 
   <main>
     <!-- ==========================================
-         HERO SECTION (SPLIT LAYOUT)
+         HERO SECTION (SPLIT LAYOUT WITH BOUTIQUE ANIMATIONS)
          ========================================== -->
     <section class="hero-section">
       <div class="container">
         <div class="hero-grid">
           <!-- Left Column Content -->
-          <div class="hero-content">
+          <div class="hero-content" data-aos="fade-right" data-aos-duration="900">
             <div class="hero-badge">
               <span class="hero-badge-dot"></span>
               <span>Discover Your Next Favorite Meal</span>
             </div>
-            <h1 class="hero-title">
+            <h1 class="hero-title hl">
               Good Food, <em>Great Mood</em>, Every Single Day.
             </h1>
-            <p class="hero-description">
+            <p class="hero-description" data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
               Unleash your inner chef with over thousands of artisan recipes, intuitive step-by-step masterclasses, and an effortless weekly meal planner designed for flavorful living.
             </p>
-            <div class="hero-cta-group">
-              <a href="explore.html" class="btn btn-primary btn-lg">
+            <div class="hero-cta-group" data-aos="fade-up" data-aos-delay="350" data-aos-duration="800">
+              <a href="explore.html" class="btn btn-primary btn-lg mag">
                 Explore Recipes
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-arrow">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
                   <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
               </a>
-              <button class="btn btn-outline btn-lg" id="hero-special-btn">
+              <button class="btn btn-outline btn-lg mag" id="hero-special-btn">
                 Discover Today's Special
               </button>
             </div>
           </div>
 
           <!-- Right Column Visual & Floating Badges -->
-          <div class="hero-media">
+          <div class="hero-media" data-aos="fade-left" data-aos-delay="150" data-aos-duration="1000">
             <div class="hero-image-card">
               <img 
                 src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80" 
@@ -152,7 +155,7 @@
                 onerror="handleImageError(this)"
               >
               <!-- Floating Cooking Time Badge -->
-              <div class="hero-floating-badge badge-time">
+              <div class="hero-floating-badge badge-time" data-aos="zoom-in" data-aos-delay="450" data-aos-duration="700">
                 <div class="badge-icon-box">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="10"></circle>
@@ -160,20 +163,20 @@
                   </svg>
                 </div>
                 <div>
-                  <span class="badge-text-primary">25 Mins</span>
+                  <span class="badge-text-primary" id="badge-time-num">25 Mins</span>
                   <span class="badge-text-secondary">Average Cook Time</span>
                 </div>
               </div>
 
               <!-- Floating Rating Badge -->
-              <div class="hero-floating-badge badge-rating">
+              <div class="hero-floating-badge badge-rating" data-aos="zoom-in" data-aos-delay="600" data-aos-duration="700">
                 <div class="badge-icon-box accent">
                   <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                   </svg>
                 </div>
                 <div>
-                  <span class="badge-text-primary">4.9 / 5.0</span>
+                  <span class="badge-text-primary" id="badge-rating-num">4.9 / 5.0</span>
                   <span class="badge-text-secondary">Community Rated</span>
                 </div>
               </div>
@@ -182,6 +185,29 @@
         </div>
       </div>
     </section>
+
+    <!-- ==========================================
+         MARQUEE CULINARY TICKER (ANIMATED INFINITE SCROLL)
+         ========================================== -->
+    <div class="culinary-ticker-wrap" aria-hidden="true">
+      <div class="culinary-ticker">
+        <div class="ticker-track">
+          <span class="ticker-item"><span class="ticker-star">✦</span> Farm-To-Table Organic Ingredients</span>
+          <span class="ticker-item"><span class="ticker-star">✦</span> 100% Chef-Tested Masterclasses</span>
+          <span class="ticker-item"><span class="ticker-star">✦</span> Smart Weekly Meal Planning</span>
+          <span class="ticker-item"><span class="ticker-star">✦</span> Instant Grocery Aggregation</span>
+          <span class="ticker-item"><span class="ticker-star">✦</span> Real-Time Ingredient Scaling</span>
+          <span class="ticker-item"><span class="ticker-star">✦</span> 18+ Gourmet Artisan Recipes</span>
+          <!-- Duplicate Track for Seamless Infinite Loop -->
+          <span class="ticker-item"><span class="ticker-star">✦</span> Farm-To-Table Organic Ingredients</span>
+          <span class="ticker-item"><span class="ticker-star">✦</span> 100% Chef-Tested Masterclasses</span>
+          <span class="ticker-item"><span class="ticker-star">✦</span> Smart Weekly Meal Planning</span>
+          <span class="ticker-item"><span class="ticker-star">✦</span> Instant Grocery Aggregation</span>
+          <span class="ticker-item"><span class="ticker-star">✦</span> Real-Time Ingredient Scaling</span>
+          <span class="ticker-item"><span class="ticker-star">✦</span> 18+ Gourmet Artisan Recipes</span>
+        </div>
+      </div>
+    </div>
 
     <!-- ==========================================
          FEATURED RECIPE SECTION
@@ -460,48 +486,17 @@
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; 2026 FlavorNest Gourmet Platforms Inc. All Rights Reserved. Handcrafted with passion.</p>
+        <p>&copy; 2026 Stackly Gourmet Platforms Inc. All Rights Reserved. Handcrafted with passion.</p>
       </div>
     </div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Animation Libraries (GSAP, ScrollTrigger, AOS) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <!-- Main Scripts -->
   <script src="script.js"></script>
-
-<script>
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const list = [];
-    document.querySelectorAll('*').forEach(el => {
-      const r = el.getBoundingClientRect();
-      if (r.right > 375 || el.scrollWidth > 375) {
-        // ignore html and body
-        if (el.tagName !== 'HTML' && el.tagName !== 'BODY') {
-          list.push({
-            tag: el.tagName,
-            cls: (el.className && typeof el.className === 'string') ? el.className.trim() : '',
-            id: el.id || '',
-            right: Math.round(r.right),
-            left: Math.round(r.left),
-            width: Math.round(r.width),
-            scrollWidth: el.scrollWidth
-          });
-        }
-      }
-    });
-    fetch('http://localhost:8081', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        docScrollWidth: document.documentElement.scrollWidth,
-        bodyScrollWidth: document.body.scrollWidth,
-        overflowCount: list.length,
-        items: list.slice(0, 20)
-      })
-    }).catch(err => console.error(err));
-  }, 200);
-});
-</script>
 </body>
 </html>
 

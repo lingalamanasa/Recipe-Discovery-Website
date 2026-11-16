@@ -4237,6 +4237,164 @@ html, body {
   }
 }
 
+/* --- 20. BOUTIQUE-STYLE ADVANCED ANIMATIONS (AOS, GSAP, 3D TILT, TICKER, SPLIT-TEXT) --- */
+
+/* Preloader Counter */
+.preloader-counter {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-top: 6px;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+  min-height: 28px;
+}
+
+/* Culinary Infinite Marquee Ticker */
+.culinary-ticker-wrap {
+  width: 100%;
+  background: linear-gradient(135deg, var(--color-primary), #1a382a);
+  color: #ffffff;
+  padding: 16px 0;
+  overflow: hidden;
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px rgba(36, 77, 58, 0.12);
+  z-index: 5;
+}
+.culinary-ticker {
+  display: flex;
+  width: max-content;
+}
+.ticker-track {
+  display: flex;
+  white-space: nowrap;
+  animation: tickerScroll 32s linear infinite;
+  will-change: transform;
+}
+.culinary-ticker-wrap:hover .ticker-track {
+  animation-play-state: paused;
+}
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0 28px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.95);
+}
+.ticker-star {
+  color: var(--color-accent);
+  font-size: 1.15rem;
+  display: inline-block;
+  animation: starRotate 8s linear infinite;
+}
+@keyframes starRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Split-Text Interactive Typography */
+.hl {
+  display: block;
+}
+.wd {
+  display: inline-block;
+  white-space: nowrap;
+}
+.c {
+  display: inline-block;
+  transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.32s;
+  cursor: default;
+}
+.hl .c:hover {
+  transform: translateY(-8px) scale(1.15) rotate(-3deg);
+  color: var(--color-accent) !important;
+}
+
+/* 3D Interactive Card Physics */
+.recipe-card,
+.category-card,
+.feature-card,
+.featured-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.recipe-card:hover {
+  box-shadow: 0 20px 40px -10px rgba(36, 77, 58, 0.16), 0 0 0 1px rgba(232, 154, 85, 0.2);
+}
+.recipe-card .card-media-wrap img,
+.cat-media-wrap img,
+.featured-media-wrapper img {
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;
+}
+.recipe-card:hover .card-media-wrap img {
+  transform: scale(1.08) rotate(0.8deg);
+}
+.category-card:hover .cat-img {
+  transform: scale(1.12) rotate(1.5deg);
+}
+.feature-card:hover {
+  transform: translateY(-8px) rotate(-1deg);
+  box-shadow: 0 20px 36px -10px rgba(36, 77, 58, 0.14);
+}
+
+/* Image Gloss Sweep Effect on Card Hover */
+.recipe-card .card-media-wrap,
+.featured-media-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+.recipe-card .card-media-wrap::after,
+.featured-media-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transform: skewX(-25deg);
+  pointer-events: none;
+  transition: left 0.85s ease;
+}
+.recipe-card:hover .card-media-wrap::after,
+.featured-card:hover .featured-media-wrapper::after {
+  left: 150%;
+}
+
+/* Floating Badges Ambient Glow and Hover Pop */
+.hero-floating-badge {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s !important;
+}
+.hero-floating-badge:hover {
+  transform: translateY(-6px) scale(1.05) !important;
+  box-shadow: 0 18px 40px rgba(36, 77, 58, 0.22) !important;
+}
+
+/* Heart Favourite Micro-Bounce Animation */
+.fav-btn.is-active,
+.fav-btn:active {
+  animation: heartSpringPop 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.4);
+}
+@keyframes heartSpringPop {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.35) rotate(-14deg); }
+  65% { transform: scale(0.9) rotate(6deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
 /* --- 19. PRINT STYLES --- */
 @media print {
   .navbar, .site-footer, .recipe-action-toolbar, .hero-fav-btn,

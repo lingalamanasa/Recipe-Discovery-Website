@@ -1103,37 +1103,257 @@ function renderQuickSearchResults(query, container) {
 }
 
 // ==========================================
-// 3.9 PRELOADER ANIMATION
+// 3.9 PRELOADER & BOUTIQUE-STYLE ANIMATION ENGINE
 // ==========================================
 function initPreloader() {
   const preloader = document.getElementById("site-preloader");
-  if (!preloader) return;
-
-  const hidePreloader = () => {
-    if (preloader.classList.contains("preloader-hidden")) return;
-    preloader.classList.add("preloader-hidden");
-    preloader.setAttribute("aria-hidden", "true");
-    setTimeout(() => {
-      preloader.style.display = "none";
-    }, 600);
-  };
-
-  const startTime = Date.now();
-  const minDisplayTime = 700;
-
-  const scheduleHide = () => {
-    const elapsed = Date.now() - startTime;
-    const remaining = Math.max(0, minDisplayTime - elapsed);
-    setTimeout(hidePreloader, remaining);
-  };
-
-  if (document.readyState === "complete") {
-    scheduleHide();
-  } else {
-    window.addEventListener("load", scheduleHide);
-    // Safety fallback
-    setTimeout(hidePreloader, 2500);
+  if (!preloader) {
+    runBoutiqueIntroAnimations();
+    return;
   }
+
+  const counter = document.getElementById("preloader-counter");
+  const bar = document.getElementById("preloader-bar-fill");
+
+  let progress = 0;
+  const duration = 1200; // 1.2s cinematic counter
+  const startTime = performance.now();
+
+  function updateCounter(currentTime) {
+    const elapsed = currentTime - startTime;
+    progress = Math.min(100, Math.round((elapsed / duration) * 100));
+    if (counter) counter.textContent = progress + "%";
+    if (bar) bar.style.width = progress + "%";
+
+    if (progress < 100) {
+      requestAnimationFrame(updateCounter);
+    } else {
+      setTimeout(() => {
+        if (window.gsap) {
+          gsap.to(preloader, {
+            yPercent: -100,
+            duration: 0.75,
+            ease: "power4.inOut",
+            onComplete: () => {
+              preloader.style.display = "none";
+              runBoutiqueIntroAnimations();
+            }
+          });
+        } else {
+          preloader.classList.add("preloader-hidden");
+          setTimeout(() => {
+            preloader.style.display = "none";
+            runBoutiqueIntroAnimations();
+          }, 500);
+        }
+      }, 150);
+    }
+  }
+
+  requestAnimationFrame(updateCounter);
+}
+
+// Split-Text Character Physics (inspired by boutique editorial styling)
+function initSplitHeadline() {
+  const headlines = document.querySelectorAll(".hl");
+  headlines.forEach(hl => {
+    // Avoid double splitting
+    if (hl.querySelector(".wd")) return;
+    const walker = document.createTreeWalker(hl, NodeFilter.SHOW_TEXT, null, false);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+
+    nodes.forEach(node => {
+      const fragment = document.createDocumentFragment();
+      const parts = node.textContent.split(/(\s+)/);
+      parts.forEach(part => {
+        if (!part) return;
+        if (/^\s+$/.test(part)) {
+          fragment.append(" ");
+          return;
+        }
+        const wordSpan = document.createElement("span");
+        wordSpan.className = "wd";
+        [...part].forEach(char => {
+          const charSpan = document.createElement("span");
+          charSpan.className = "c";
+          charSpan.textContent = char;
+          wordSpan.append(charSpan);
+        });
+        fragment.append(wordSpan);
+      });
+      node.replaceWith(fragment);
+    });
+  });
+}
+
+// 3D Perspective Mousemove Physics on Cards
+function init3DTilt() {
+  const cards = document.querySelectorAll(
+    ".recipe-card, .featured-card, .hero-image-card, .feature-card, .category-card"
+  );
+  cards.forEach(card => {
+    if (card._tiltBound) return;
+    card._tiltBound = true;
+
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `perspective(1000px) rotateY(${x * 7}deg) rotateX(${-y * 7}deg) translateY(-4px)`;
+    });
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "";
+      card.style.transition = "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s";
+    });
+    card.addEventListener("mouseenter", () => {
+      card.style.transition = "transform 0.1s ease-out";
+    });
+  });
+}
+
+// Magnetic Button Interaction
+function initMagneticButtons() {
+  const magnets = document.querySelectorAll(".mag, .nav-icon-btn");
+  magnets.forEach(b => {
+    if (b._magBound) return;
+    b._magBound = true;
+
+    b.addEventListener("mousemove", (e) => {
+      const rect = b.getBoundingClientRect();
+      const x = (e.clientX - rect.left - rect.width / 2) * 0.25;
+      const y = (e.clientY - rect.top - rect.height / 2) * 0.25;
+      b.style.transform = `translate(${x}px, ${y}px)`;
+    });
+    b.addEventListener("mouseleave", () => {
+      b.style.transform = "translate(0px, 0px)";
+      b.style.transition = "transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+    });
+    b.addEventListener("mouseenter", () => {
+      b.style.transition = "transform 0.1s ease-out";
+    });
+  });
+}
+
+// Animated Numerical Rollups
+function initNumberCounters() {
+  const timeEl = document.getElementById("badge-time-num");
+  if (timeEl && !timeEl._counted) {
+    timeEl._counted = true;
+    let current = 0;
+    const target = 25;
+    const timer = setInterval(() => {
+      current++;
+      timeEl.textContent = `${current} Mins`;
+      if (current >= target) clearInterval(timer);
+    }, 45);
+  }
+}
+
+// Master Boutique Animation Controller
+function runBoutiqueIntroAnimations() {
+  // 1. Initialize AOS Scroll Reveal
+  if (window.AOS) {
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 50,
+      easing: "ease-out-cubic"
+    });
+  }
+
+  // 2. Headline Character Physics
+  initSplitHeadline();
+
+  // 3. GSAP Timeline Orchestration
+  if (window.gsap) {
+    const tl = gsap.timeline();
+    tl.from(".brand-logo, .nav-menu .nav-link, .nav-actions .nav-icon-btn", {
+      y: -18,
+      opacity: 0,
+      duration: 0.55,
+      stagger: 0.04,
+      ease: "power3.out",
+      clearProps: "all"
+    })
+    .from(".hero-badge", { opacity: 0, y: 15, duration: 0.45 }, "-=0.25")
+    .from(".hl .c", {
+      yPercent: 120,
+      rotate: 8,
+      opacity: 0,
+      duration: 0.7,
+      stagger: 0.02,
+      ease: "power4.out",
+      clearProps: "all"
+    }, "-=0.3")
+    .from(".hero-description, .hero-cta-group", {
+      y: 22,
+      opacity: 0,
+      duration: 0.65,
+      stagger: 0.08,
+      ease: "power3.out",
+      clearProps: "all"
+    }, "-=0.35")
+    .from(".hero-image-card", {
+      scale: 0.94,
+      opacity: 0,
+      duration: 0.9,
+      ease: "power3.out",
+      clearProps: "all"
+    }, "-=0.7")
+    .from(".hero-floating-badge", {
+      scale: 0.75,
+      opacity: 0,
+      y: 18,
+      duration: 0.55,
+      stagger: 0.12,
+      ease: "back.out(1.7)",
+      clearProps: "all"
+    }, "-=0.4");
+
+    // 4. ScrollTrigger Parallax
+    if (window.ScrollTrigger) {
+      gsap.to(".hero-main-img", {
+        yPercent: -10,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".hero-section",
+          start: "top top",
+          end: "bottom top",
+          scrub: 1
+        }
+      });
+      gsap.to(".badge-time", {
+        y: -25,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".hero-section",
+          start: "top top",
+          end: "bottom top",
+          scrub: 1.5
+        }
+      });
+      gsap.to(".badge-rating", {
+        y: 20,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".hero-section",
+          start: "top top",
+          end: "bottom top",
+          scrub: 1.5
+        }
+      });
+    }
+  }
+
+  // 5. Interactive 3D Card Tilts
+  init3DTilt();
+
+  // 6. Magnetic Buttons
+  initMagneticButtons();
+
+  // 7. Stat Rollups
+  initNumberCounters();
 }
 
 // ==========================================
@@ -1326,7 +1546,7 @@ function createRecipeCardHTML(recipe, options = { showMealPlanBtn: true }) {
   const stars = "★".repeat(Math.round(recipe.rating));
 
   return `
-    <article class="recipe-card" data-recipe-id="${recipe.id}" data-category="${recipe.category.toLowerCase()}" data-cooktime="${recipe.cookTime}">
+    <article class="recipe-card" data-aos="fade-up" data-recipe-id="${recipe.id}" data-category="${recipe.category.toLowerCase()}" data-cooktime="${recipe.cookTime}">
       <div class="recipe-card-media">
         <img src="${recipe.image}" alt="${recipe.name}" class="recipe-card-img" loading="lazy" onerror="handleImageError(this)">
         <span class="recipe-category-badge">${recipe.category}</span>
@@ -1479,6 +1699,9 @@ function initHomePage() {
     const popularList = RECIPES_DATA.filter(r => r.isPopular).slice(0, 6);
     popularContainer.innerHTML = popularList.map(r => createRecipeCardHTML(r, { showMealPlanBtn: true })).join("");
     bindRecipeCardInteractions(popularContainer);
+    if (window.AOS) AOS.refresh();
+    init3DTilt();
+    initMagneticButtons();
   }
 
   // Setup "Discover Today's Special" button scroll
@@ -1575,6 +1798,19 @@ function initExplorePage() {
       if (emptyState) emptyState.style.display = "none";
       gridContainer.style.display = "grid";
       gridContainer.innerHTML = result.map(r => createRecipeCardHTML(r, { showMealPlanBtn: true })).join("");
+      if (window.gsap) {
+        gsap.from(gridContainer.children, {
+          y: 35,
+          opacity: 0,
+          duration: 0.5,
+          stagger: 0.04,
+          ease: "power3.out",
+          clearProps: "all"
+        });
+      }
+      if (window.AOS) AOS.refresh();
+      init3DTilt();
+      initMagneticButtons();
     }
   }
 
@@ -2176,6 +2412,9 @@ function initRecipeDetailsPage() {
   }
 
   renderPage();
+  if (window.AOS) AOS.refresh();
+  init3DTilt();
+  initMagneticButtons();
 }
 
 // ==========================================
@@ -2185,6 +2424,9 @@ function initMealPlanPage() {
   renderMealPlanGrid();
   renderMealPlanFavoritesList();
   renderGroceryList();
+  if (window.AOS) AOS.refresh();
+  init3DTilt();
+  initMagneticButtons();
 
   // Clear weekly plan button
   const clearBtn = document.getElementById("clear-week-plan-btn");
