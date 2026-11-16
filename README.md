@@ -29,7 +29,7 @@ Stackly is designed around an elegant, editorial food-magazine aesthetic with wa
 ## 🌐 2. Website Structure & Pages
 
 1. **`index.html` (Home Page)**
-   - **Sticky Navigation Bar**: Logo with bespoke culinary cloche SVG icon, links, live Search trigger, dynamic Favourites count badge, Meal Plan badge, and responsive mobile hamburger drawer.
+   - **Fixed Navigation Bar**: Stackly brand logo, mathematically centered links with directional hover transitions, live Search trigger, dynamic Favourites count badge, Meal Plan badge, and responsive mobile drawer.
    - **Split-Layout Hero Section**: Engaging typography, badge with animated glowing pulse, Call-To-Action buttons, and a food showcase featuring floating cook time and community rating badges.
    - **Featured Recipe of the Day**: Highlighting Tuscan Garlic Butter Salmon with metadata, time breakdowns, and instant Add-to-Plan / View Recipe triggers.
    - **Popular Recipes**: 6 interactive recipe cards with image hover zoom, category tags, difficulty badges, heart toggle, and star ratings.
